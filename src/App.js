@@ -1,7 +1,10 @@
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './components/header';
 import MainDefault from './components/main/mainDefault';
 import MyRide from './components/main/MyRide';
 import MyRecord from './components/main/MyRecord';
+import Community from './components/main/Community';
 import Footer from './components/footer';
 import styled from 'styled-components';
 import './App.css';
@@ -17,17 +20,33 @@ const StyledMainContainer = styled.div`
 
 function App() {
   return (
+    <BrowserRouter>
     <div className="App">
-     
+   
       <Header />
       <StyledMainContainer>
-        <MainDefault />
-        {/* <MyRide path="myride"/>
-        <MyRecord path="myrecord" /> */}
+        <Switch>  
+            <Route exact path="/">
+              <MainDefault />
+            </Route>
+          
+            <Route path="/myride">
+              <MyRide />
+            </Route>
+          
+            <Route path="/myrecord">
+              <MyRecord  />
+            </Route>
+            
+            <Route path="/community">
+              <Community  />
+            </Route>
+        </Switch>
       </StyledMainContainer>
       <Footer />
      
     </div>
+    </BrowserRouter>
   );
 }
 

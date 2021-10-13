@@ -6,8 +6,9 @@ const StyledContainer = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 125px;
-    background-color: #A5D6A7;
+    height: 100px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #E1E2E1;
 `;
 
 const StyledHeader = styled.div`
@@ -19,14 +20,17 @@ const StyledHeader = styled.div`
 `;
 
 const StyledTitle = styled.h1`
+margin: auto 0;
+color: #A5D6A7;
     font-size: 60px;
 `;
 
 const StyledMenu = styled.ul`
 display: flex;
     list-style: none;
+    line-height: 40px;
     > li {
-        font-size: 25px;
+        font-size: 20px;
         margin-left: 35px;
     }
 `;
