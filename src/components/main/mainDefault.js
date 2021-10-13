@@ -23,7 +23,7 @@ const TOTAL_SLIDES = 5;
 const MainDefault = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slideRef = useRef(null); 
-
+    //const colorNameArr = ['blue', 'yellow', 'red', 'lightgreen', 'purple' , 'green', 'grey']
     const nextSlide = () => {
         if (currentSlide >= TOTAL_SLIDES) {
             setCurrentSlide(0);
@@ -46,7 +46,18 @@ const MainDefault = () => {
     return (
         <>
             <StyledContainer>
-                <StyledSliderContainer ref={slideRef}>
+            <StyledSliderContainer ref={slideRef} >
+                    {/* {
+                        colorNameArr.map((a, i) => {
+                            return (
+                                <StyledSliderContainer ref={slideRef} key={i}>
+                                    <StyledImg src={require("../../img/" + ( colorNameArr[i]) + "-nobg.png").default} alt={colorNameArr[i]+ "bycycle"} />
+                                </StyledSliderContainer>
+                            )
+                        })
+
+                    }
+                */}
                     <StyledImg src={require("../../img/blue-nobg.png").default} alt="blue bycycle" />
                     <StyledImg src={require("../../img/yellow-nobg.png").default} alt="yellow bycycle" />
                     <StyledImg src={require("../../img/red-nobg.png").default} alt="red bycycle" />
@@ -54,7 +65,7 @@ const MainDefault = () => {
                     <StyledImg src={require("../../img/purple-nobg.png").default} alt="purple bycycle" />
                     <StyledImg src={require("../../img/green-nobg.png").default} alt="green bycycle" />
                     <StyledImg src={require("../../img/grey-nobg.png").default} alt="grey bycycle" />       
-                </StyledSliderContainer>
+                    </StyledSliderContainer>
             </StyledContainer>
             
 

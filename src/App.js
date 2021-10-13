@@ -26,21 +26,10 @@ function App() {
       <Header />
       <StyledMainContainer>
         <Switch>  
-            <Route exact path="/">
-              <MainDefault />
-            </Route>
-          
-            <Route path="/myride">
-              <MyRide />
-            </Route>
-          
-            <Route path="/myrecord">
-              <MyRecord  />
-            </Route>
-            
-            <Route path="/community">
-              <Community  />
-            </Route>
+            <Route exact path="/" component={MainDefault} />         
+            <Route path="/myride" component={MyRide} />         
+            <Route path="/myrecord" component={MyRecord} />           
+            <Route path="/community" component={Community} />
         </Switch>
       </StyledMainContainer>
       <Footer />
