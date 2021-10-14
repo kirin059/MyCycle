@@ -21,20 +21,18 @@ const StyledMainContainer = styled.div`
 function App() {
   return (
     <BrowserRouter>
-    <div className="App">
-   
-      <Header />
-      <StyledMainContainer>
-        <Switch>  
-            <Route exact path="/" component={MainDefault} />         
-            <Route path="/myride" component={MyRide} />         
-            <Route path="/myrecord" component={MyRecord} />           
-            <Route path="/community" component={Community} />
-        </Switch>
-      </StyledMainContainer>
-      <Footer />
-     
-    </div>
+      <div className="App">
+        <Header />
+        <StyledMainContainer>
+          <Switch>  
+              <Route exact path="/" component={MainDefault} />         
+              <Route path="/myride" component={MyRide} />         
+              <Route path="/myrecord" component={MyRecord} />           
+              <Route path="/community" component={Community} />
+          </Switch>
+        </StyledMainContainer>
+        <Footer /> 
+      </div>
     </BrowserRouter>
   );
 }

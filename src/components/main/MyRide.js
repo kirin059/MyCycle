@@ -3,15 +3,44 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const StyledMapContainer = styled.div`
-padding: 10px;
-width:600px;
-height:500px;
-border: 1px solid #0d0d0d;
+    width:800px;
+    height:700px;
+    border: 1px solid #A5D6A7;
+    border-radius: 8px;
 `;
 
 const StyledMap = styled.div`
-width:100%;
-height:100%;
+  width:100%;
+  height:100%;
+`;
+
+const StyledInputContainer = styled.div`
+  margin:3% auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  div {
+    display: flex;
+    align-items: center;
+    margin-right:5px;
+  }
+  div >p {
+    margin-right: 10px;
+  }
+  div >input {
+      padding: 2px 11px;
+      width: 300px;
+     height: 30px;
+     border: none;
+     border-radius: 8px;
+     box-shadow: 3px 3px 3px 3px #E1E2E1;
+   }
+   div >input:focus {
+    outline:none;
+   }
+   div >span {
+     margin-right:5px;
+   }
 `;
 
 const MyRide = () => {
@@ -35,7 +64,7 @@ const MyRide = () => {
       127.16017523675508
     );
 
-    // 마커를 생성
+    // 마커 생성
     let marker = new kakao.maps.Marker({
       position: markerPosition,
     });
@@ -47,6 +76,14 @@ const MyRide = () => {
  
   return (
     <div class="MyRide">
+      <StyledInputContainer>
+        <div>
+        <p>출발지</p> <input type="text" />
+        </div>
+        <div>
+        <p>도착지</p> <input type="text" />
+        </div>
+      </StyledInputContainer>
       <StyledMapContainer>
         <StyledMap id="map" />
       </StyledMapContainer>

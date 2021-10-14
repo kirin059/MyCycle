@@ -73,8 +73,7 @@ const Header = () => {
                     </StyledMenu>
 
                 </StyledHeader>
-            </StyledContainer>
-            
+            </StyledContainer>   
         </>
     );
 };
