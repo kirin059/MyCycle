@@ -1,92 +1,158 @@
 /*global kakao */
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-
-const StyledMapContainer = styled.div`
-    width:800px;
-    height:700px;
-    border: 1px solid #A5D6A7;
-    border-radius: 8px;
-`;
-
-const StyledMap = styled.div`
-  width:100%;
-  height:100%;
-`;
+import { Button, Modal } from 'antd';
+import { SearchOutlined, DownCircleFilled } from '@ant-design/icons';
+import 'antd/dist/antd.css'
+import Map from './Map';
 
 const StyledInputContainer = styled.div`
-  margin:3% auto;
+  margin: 1.5%  0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  div {
+  form {
     display: flex;
-    align-items: center;
-    margin-right:5px;
+    justify-content: space-between;
+    margin: 0;
+    width: 100%;
   }
-  div >p {
+  .InputContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .InputContainer input {              
+    padding: 2px 11px;
     margin-right: 10px;
+    width: 380px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px 3px #E1E2E1;
   }
-  div >input {
-      padding: 2px 11px;
-      width: 300px;
-     height: 30px;
-     border: none;
-     border-radius: 8px;
-     box-shadow: 3px 3px 3px 3px #E1E2E1;
-   }
-   div >input:focus {
+  .InputContainer input:focus {
     outline:none;
-   }
-   div >span {
-     margin-right:5px;
-   }
+  }
+  #search {
+     border-radius: 5px;
+     box-shadow: 2px 2px 2px 2px #E1E2E1;
+  }
+`;
+
+const StyledMoreOption = styled(DownCircleFilled)`
+  font-size: 35px;
+  color: coral;
+  transition: transform 300ms ease;
+  :hover {
+    transform: scale(1.1);
+  }
+`;
+
+const StyledModal = styled(Modal)`
+  max-width: 400px;
+  .ant-modal-body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 400px;
+    height: 150px;
+    margin: auto;
+    padding-top: 50px;
+  }
+  img {
+    width: 45px !important;
+    height: 45px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 300ms ease;
+    :hover {
+      transform: scale(1.1);
+    }
+  }
+  #trafficBtn, #loadBtn, #bicycleBtn {
+    margin-right: 3%;
+    background-color: coral;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px #E1E2E1;
+    transition: transform 300ms ease;
+    :hover {
+      transform: scale(1.1);
+    }
+  }
 `;
 
 const MyRide = () => {
-  useEffect(() => {
-    createMap();
-  }, [])
+  const [inputText, setInputText] = useState("");
+  const [place, setPlace] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const createMap = () => {
-    let container = document.getElementById("map");
-    let options = {
-      center: new kakao.maps.LatLng(37.624915253753194, 127.15122688059974),
-      level: 7,
-    };
+  const searchInputOnChange = (e) => {
+    setInputText(e.target.value);
+  }
 
-    //map
-    const map = new kakao.maps.Map(container, options);
-
-    //마커가 표시 될 위치
-    let markerPosition = new kakao.maps.LatLng(
-      37.62197524055062,
-      127.16017523675508
-    );
-
-    // 마커 생성
-    let marker = new kakao.maps.Marker({
-      position: markerPosition,
-    });
-
-    // 마커를 지도 위에 표시
-    marker.setMap(map);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setPlace(inputText);
+    setInputText("");
   };
 
- 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleOk1 = () => {
+    setIsModalVisible(false);
+   // map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+  };
+
+  const handleOk2 = () => {
+    setIsModalVisible(false);
+    //map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
+  };
+
+  const handleOk3 = () => {
+    setIsModalVisible(false);
+    //map.addOverlayMapTypeId(kakao.maps.MapTypeId.BICYCLE);
+  };
+
   return (
     <div class="MyRide">
+
+      {/* search */}
       <StyledInputContainer>
-        <div>
-        <p>출발지</p> <input type="text" />
-        </div>
-        <div>
-        <p>도착지</p> <input type="text" />
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div class="InputContainer">
+                <input value={ inputText } onChange={searchInputOnChange} id="keyword"  type="text" placeholder="위치 검색하기" />
+            <Button id="search" htmlType="submit"  icon={<SearchOutlined />}> Search </Button>  
+            {/* <button type="submit">검색</button> */}
+            </div>
+            <StyledMoreOption onClick={showModal} />  
+          </form>
       </StyledInputContainer>
-      <StyledMapContainer>
-        <StyledMap id="map" />
-      </StyledMapContainer>
+      
+      {/* modal */}
+      <StyledModal visible={isModalVisible} onCancel={handleOk} footer={null} closable={true} >
+        <Button id="trafficBtn" type="primary" onClick={handleOk1}>교통정보</Button>
+        <Button id="loadBtn" type="primary" onClick={handleOk2}>로드뷰</Button>
+        <Button id="bicycleBtn" type="primary" onClick={handleOk3}>자전거</Button>
+        <img src={require("../../img/kakao_navi.png").default}
+          onClick={() => {
+            handleOk();
+            window.open('https://map.kakao.com/link/to/18577297');
+            }}
+          style={{ width: "30px" }}
+        />
+      </StyledModal> 
+            
+      <Map myRide={place} />
+     
+
     </div>
   );
 };

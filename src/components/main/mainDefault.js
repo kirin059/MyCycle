@@ -7,15 +7,15 @@ const StyledContainer = styled.div`
 `;
 
 const StyledSliderContainer = styled.div`
-margin-top: 30%;
+  margin-top: 30%;
   width: 100%;
   display: flex; 
 `;
 
 const StyledImg = styled.img`
-    width: 500px;
-    height: 480px;
-    margin: 0 20px;
+  width: 500px;
+  height: 480px;
+  margin: 0 20px;
 `;
 
 const TOTAL_SLIDES = 5;
