@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Modal } from 'antd';
-import { SearchOutlined, DownCircleFilled } from '@ant-design/icons';
+import { SearchOutlined, DownOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css'
 
 const StyledInputContainer = styled.div`
@@ -38,10 +38,15 @@ const StyledInputContainer = styled.div`
   }
 `;
 
-const StyledMoreOption = styled(DownCircleFilled)`
-  font-size: 35px;
-  color: coral;
+const StyledMoreOption = styled(DownOutlined)`
+  padding: 2px;
+  border: 3.5px solid coral;
+  border-radius: 8px;
+  font-size: 25px;
+  color: #fff;
+  background-color: coral;
   transition: transform 300ms ease;
+  cursor: pointer;
   :hover {
     transform: scale(1.1);
   }
@@ -56,7 +61,6 @@ const StyledModal = styled(Modal)`
     width: 400px;
     height: 150px;
     margin: auto;
-    padding-top: 50px;
   }
   img {
     width: 45px !important;
@@ -115,7 +119,6 @@ const MyRide = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setPlace(inputText);
-    setInputText("");
   };
 
   
@@ -211,28 +214,28 @@ const MyRide = () => {
       <StyledInputContainer>
         <form onSubmit={handleSubmit}>
             <div class="InputContainer">
-              <input value={ inputText } onChange={searchInputOnChange} id="keyword"  type="text" placeholder="위치 검색하기" />
+              <input value={inputText} onClick={ () => {setInputText("");}} onChange={searchInputOnChange} id="keyword"  type="text" placeholder="위치 검색하기" />
               <Button id="search" htmlType="submit" icon={<SearchOutlined />}> Search </Button>
             </div>
-            <StyledMoreOption onClick={showModal} /> 
+            <div  style={{ display:"flex", alignItems:"center" }}>
+              <StyledMoreOption onClick={showModal} />
+              <img src={require("../../img/kakao_navi.png").default}
+                onClick={() => {
+                    handleOk();
+                    window.open(`https://map.kakao.com/link/to/${placeId}`);
+                    }}
+                style={{ width: "40px", marginLeft:"15px", 'borderRadius': '8px' }}
+              />
+            </div>
           </form>
       </StyledInputContainer>
  
-      <StyledModal visible={isModalVisible} onCancel={handleOk} footer={null} closable={true} title="지도 타입 변경하기">
+      <StyledModal visible={isModalVisible} onCancel={handleOk} footer={null} closable={true} title="지도 타입 변경">
           <Button id="trafficBtn" onClick={handleTrafficOption}>교통정보</Button>
           <Button id="loadBtn" onClick={handleLoadOption}>로드뷰</Button>
           <Button id="bicycleBtn" onClick={handleBicycleOption}>자전거</Button>
-
-
-          <img src={require("../../img/kakao_navi.png").default}
-          onClick={() => {
-              handleOk();
-              window.open(`https://map.kakao.com/link/to/${placeId}`);
-              }}
-          style={{ width: "30px" }}
-          />
       </StyledModal> 
-            
+      
       <StyledMapContainer>
                 <StyledMap id='map'/>
             </StyledMapContainer> 
