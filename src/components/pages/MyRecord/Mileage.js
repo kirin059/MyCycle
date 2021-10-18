@@ -1,71 +1,116 @@
 import React from 'react';
-import { Calendar, Modal, Button } from "antd";
-import moment from 'moment';
-// import 'moment/locale/ko_KR'; 
+import { Calendar, Modal, Button, Form, Input, Rate, InputNumber, Upload, } from "antd";
+import { UploadOutlined } from '@ant-design/icons';
 import locale from "antd/es/calendar/locale/ko_KR";
 import { useState } from 'react/cjs/react.development';
-
-//moment.locale('ko_KR');
 
 
 const Mileage = () => {
 
-    const [selectDiary, setSelectDiary] = useState([]);
+    const [selectDay, setSelectDay] = useState([]);
     const [dateCellModal, setDateCellModal] = useState(false);
+    const [recordContents, setRecordContents] = useState("")
 
     const onSelectDateCell = (value) => {
-        console.log(value, 'value 온셀렉트데이트 셀')  // 각 날짜의 moment로 리턴
-        // const diaryData = data && data.diaryData;
-    
-        // const filterData = diaryData && diaryData.filter((data) => {
-        //   return (
-        //     moment(data.createdAt).format("YYYY-MM-DD") === value.format("YYYY-MM-DD")
-        //   );
-        // });
-    
-        // setSelectDiary(filterData);
-        //filterData[0] && setDateCellModal(true);
+        setDateCellModal(true)
+        setSelectDay(value.format("YYYY-MM-DD"))
     };
-    
+
     const handleOk = () => {
       setDateCellModal(false)
     };
-    const handleCancel = () => {
-      setDateCellModal(false)
-    };
-     
 
+    const submitForm = (value) => {
+        setRecordContents(value)
+    }
+
+    const fillSelectDateCell = (value) => {
+        setRecordContents(value)
+    }
+
+    const onFinish = (values) => {
+        console.log('Received values of form: ', values);
+      };
+    
     return (
         <>
-            {/* <Calendar
-            locale={locale}
-            dateCellRender={dateCellRender}
-            onSelect={onSelectDateCell}
-          />
-
-          { /* <DiaryModal /> 
-          <DiaryList selectedDiary={selectDiary} /> */}
             <Calendar
             locale={locale}
             onSelect={onSelectDateCell}
+            onSelect={fillSelectDateCell}
             />
            
             
            <Modal
             visible={dateCellModal}
-            title={selectDiary?.title}
+            title={selectDay}
             onOk={handleOk}
-            onCancel={handleCancel}
-            footer={[
-            <Button key="back" onClick={handleCancel}>
-              수정
-            </Button>,
-            <Button key="submit" type="primary" onClick={handleCancel}>
-              확인
-            </Button>,
-          ]}
-        >
-          {selectDiary?.contents}
+            okButtonProps={{htmlType: 'submit', form: 'editForm'}}
+            // footer={[
+            //     <Button key="back" onClick={handleOk}>
+            //         취소
+            //     </Button>,
+            //     <Button key="submit" type="primary" onClick={handleOk} afterClose={ handleOk }>
+            //     저장
+            //     </Button>,
+            // ]}
+            >
+            <Form
+                id="editForm"
+                layout="vertical"
+                name="form_in_modal"
+                onFinish={submitForm}
+                name="validate_other"
+                // {...formItemLayout}
+                onFinish={onFinish}
+                initialValues={{
+                    'input-number': 3,
+                    rate: 3.5,
+                }}
+            >
+   
+
+            <Form.Item
+                name={['address', 'street']}
+                noStyle
+                rules={[{ required: true, message: '출발지' }]}
+            >
+                <Input style={{ width: '100%' }} placeholder="출발지" />
+            </Form.Item>
+
+            <Form.Item
+                name={['address', 'street']}
+                noStyle
+                rules={[{ required: true, message: '도착지' }]}
+            >
+                <Input style={{ width: '100%' }} placeholder="도착지" />
+            </Form.Item>
+
+            <Form.Item name={['user', 'age']} label="총 주행거리" rules={[{ type: 'number', min: 0, max: 99 }]}>
+                <InputNumber />
+            </Form.Item>
+
+
+            <Form.Item name="rate" label="자기 평가">
+                <Rate />
+            </Form.Item>
+
+            <Form.Item
+                name="upload"
+                label="이미지 업로드"
+                valuePropName="fileList"
+                //getValueFromEvent={normFile}
+                extra="기념샷을 올려주세요😍"
+            >
+                <Upload name="logo" action="/upload.do" listType="picture">
+                <Button icon={<UploadOutlined />}>Click to upload</Button>
+                </Upload>
+            </Form.Item>
+
+
+        </Form>
+            
+          {recordContents}
         </Modal>
         </>
     );
