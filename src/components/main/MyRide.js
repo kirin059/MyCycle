@@ -217,7 +217,7 @@ const MyRide = () => {
               <input value={inputText} onClick={ () => {setInputText("");}} onChange={searchInputOnChange} id="keyword"  type="text" placeholder="위치 검색하기" />
               <Button id="search" htmlType="submit" icon={<SearchOutlined />}> Search </Button>
             </div>
-            <div  style={{ display:"flex", alignItems:"center" }}>
+            <div style={{ display:"flex", alignItems:"center" }}>
               <StyledMoreOption onClick={showModal} />
               <img src={require("../../img/kakao_navi.png").default}
                 onClick={() => {
@@ -231,16 +231,14 @@ const MyRide = () => {
       </StyledInputContainer>
  
       <StyledModal visible={isModalVisible} onCancel={handleOk} footer={null} closable={true} title="지도 타입 변경">
-          <Button id="trafficBtn" onClick={handleTrafficOption}>교통정보</Button>
-          <Button id="loadBtn" onClick={handleLoadOption}>로드뷰</Button>
-          <Button id="bicycleBtn" onClick={handleBicycleOption}>자전거</Button>
+        <Button id="trafficBtn" onClick={handleTrafficOption}>교통정보</Button>
+        <Button id="loadBtn" onClick={handleLoadOption}>로드뷰</Button>
+        <Button id="bicycleBtn" onClick={handleBicycleOption}>자전거</Button>
       </StyledModal> 
       
       <StyledMapContainer>
-                <StyledMap id='map'/>
-            </StyledMapContainer> 
-     
-
+        <StyledMap id='map'/>
+      </StyledMapContainer> 
     </div>
   );
 };

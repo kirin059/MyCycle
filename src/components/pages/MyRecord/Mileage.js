@@ -1,117 +1,133 @@
-import React from 'react';
-import { Calendar, Modal, Button, Form, Input, Rate, InputNumber, Upload, } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
+import React, { useRef, useState }from 'react';
+//import DateModal from './DateModal';
+import { Calendar } from "antd";
 import locale from "antd/es/calendar/locale/ko_KR";
-import { useState } from 'react/cjs/react.development';
+
+import { Modal, Button, Form, Input, Rate, InputNumber, Upload, } from "antd";
+import { UploadOutlined } from '@ant-design/icons';
 
 
 const Mileage = () => {
-
     const [selectDay, setSelectDay] = useState([]);
-    const [dateCellModal, setDateCellModal] = useState(false);
-    const [recordContents, setRecordContents] = useState("")
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [clicked, setClicked] = useState(false)
 
-    const onSelectDateCell = (value) => {
-        setDateCellModal(true)
-        setSelectDay(value.format("YYYY-MM-DD"))
+    const normFile = (e) => {
+        if (Array.isArray(e)) {
+          return e;
+        }
+         return e && e.fileList;
+    };
+    const distanceValue = useRef('');
+
+
+    const onSelectDateCell = (date) => {
+        setIsModalOpen(true)
+        setSelectDay(date.format("YYYY-MM-DD"))
+        dateCellRender(date)
     };
 
     const handleOk = () => {
-      setDateCellModal(false)
-    };
-
-    const submitForm = (value) => {
-        setRecordContents(value)
-    }
-
-    const fillSelectDateCell = (value) => {
-        setRecordContents(value)
-    }
-
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        setIsModalOpen(!isModalOpen)
+        setClicked(true)
       };
     
+    const handleClose = () => {
+        setIsModalOpen(!isModalOpen)
+    };
+
+    
+    // const getModalContents = (data) => {
+    //     console.log(data, "데이터 받아온 모달데이터")
+
+    //     return (
+    //         <div>{data}</div>
+    //     )
+    // }
+
+    const dateCellRender = (value) => {
+        //console.log(selectDay, '셀렉트데이')
+        const saveBtn = document.getElementById("save")
+        const distancevalues = distanceValue?.current.value;
+        console.log(distancevalues, '디스턴스밸류')
+
+        //let thisCell = onSelectDateCell();
+
+            let calendarData; // 선택한날짜
+            let dailyContents;  // 기입내용
+           
+
+              if (selectDay === value.format("YYYY-MM-DD") && clicked ) {
+                return <div>{distancevalues} km</div>
+              }
+  
+    }
+
     return (
         <>
             <Calendar
-            locale={locale}
-            onSelect={onSelectDateCell}
-            onSelect={fillSelectDateCell}
+                locale={locale}
+                onSelect={onSelectDateCell}  // 날짜가 선택되었을 때 발생하는 이벤트
+                dateCellRender={dateCellRender}
             />
-           
-            
-           <Modal
-            visible={dateCellModal}
-            title={selectDay}
-            onOk={handleOk}
-            okButtonProps={{htmlType: 'submit', form: 'editForm'}}
-            // footer={[
-            //     <Button key="back" onClick={handleOk}>
-            //         취소
-            //     </Button>,
-            //     <Button key="submit" type="primary" onClick={handleOk} afterClose={ handleOk }>
-            //     저장
-            //     </Button>,
-            // ]}
+            {/* {isModalOpen && <DateModal
+                handleOk={handleOk}
+                handleClose={handleClose}
+                selectDay={selectDay}
+                isModalOpen={isModalOpen}
+                modalContents={getModalContents}
+            />} */}
+
+            {isModalOpen && <Modal
+                visible={isModalOpen}
+                title={selectDay}
+                onOk={handleOk}
+                onCancel={handleClose}
+                footer={[
+                <Button key="back" onClick={handleClose}> 취소 </Button>,
+                <Button id="save" form="myForm" onClick={handleOk} type="primary"> 저장 </Button>,  //  htmlType="submit"
+                ]}
             >
-            <Form
-                id="editForm"
-                layout="vertical"
-                name="form_in_modal"
-                onFinish={submitForm}
-                name="validate_other"
-                // {...formItemLayout}
-                onFinish={onFinish}
-                initialValues={{
-                    'input-number': 3,
-                    rate: 3.5,
-                }}
-            >
-   
+                <Form
+                    id="myForm"
+                    name="form_in_modal"
+                    onFinish={handleOk}
+                >
+                    <Form.Item
+                        name={['start']}   
+                        rules={[{ required: true, message: '출발지를 입력해주세요' }]}
+                    >
+                    <Input style={{ width: '100%' }} placeholder="출발지" />
+                    </Form.Item>
+                    <Form.Item
+                        name={['end']}    
+                        rules={[{ required: true, message: '도착지를 입력해주세요' }]}
+                    >
+                        <Input style={{ width: '100%' }} placeholder="도착지" />
+                    </Form.Item>
+                    <Form.Item
+                        name={['distance']}
+                        rules={[{ type: 'number', min: 0, max: 99999 }]}
+                    >
+                        <InputNumber ref={distanceValue} value={distanceValue.current.value} style={{ width: '100%' }} placeholder="총 주행거리"  />
+                    </Form.Item>
+                    <Form.Item name="rate" style={{display:"flex"}}>
+                    <span style={{marginRight:"10px"}}>셀프 평점</span> <Rate defaultValue="3.5"/>
+                    </Form.Item>
 
-            <Form.Item
-                name={['address', 'street']}
-                noStyle
-                rules={[{ required: true, message: '출발지' }]}
-            >
-                <Input style={{ width: '100%' }} placeholder="출발지" />
-            </Form.Item>
-
-            <Form.Item
-                name={['address', 'street']}
-                noStyle
-                rules={[{ required: true, message: '도착지' }]}
-            >
-                <Input style={{ width: '100%' }} placeholder="도착지" />
-            </Form.Item>
-
-            <Form.Item name={['user', 'age']} label="총 주행거리" rules={[{ type: 'number', min: 0, max: 99 }]}>
-                <InputNumber />
-            </Form.Item>
-
-
-            <Form.Item name="rate" label="자기 평가">
-                <Rate />
-            </Form.Item>
-
-            <Form.Item
-                name="upload"
-                label="이미지 업로드"
-                valuePropName="fileList"
-                //getValueFromEvent={normFile}
-                extra="기념샷을 올려주세요😍"
-            >
-                <Upload name="logo" action="/upload.do" listType="picture">
-                <Button icon={<UploadOutlined />}>Click to upload</Button>
-                </Upload>
-            </Form.Item>
-
-
-        </Form>
-            
-          {recordContents}
-        </Modal>
+                    <Form.Item
+                        name="upload"
+                        valuePropName="fileList"
+                        getValueFromEvent={normFile}
+                        extra="자전거를 타며 추억했던 사진을 기록해보아요😍"
+                    >
+                        <Upload name="logo" action="/upload.do" listType="picture">
+                        <span style={{marginRight:"10px"}}>이미지 업로드</span><Button icon={<UploadOutlined />}>Click to upload</Button>
+                        </Upload>
+                    </Form.Item>
+                </Form>
+            </Modal>
+    }
         </>
     );
 };

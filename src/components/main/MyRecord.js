@@ -29,7 +29,7 @@ const MyRecord = () => {
     return (
         <>
             <StyledTapContainer defaultActiveKey="1" centered>
-                <TabPane tab="주행 거리" key="1" size="large" >
+                <TabPane tab="주행 기록" key="1" size="large" >
                     <Mileage />
                 </TabPane>
                 <TabPane tab="운동량" key="2" size="large">
