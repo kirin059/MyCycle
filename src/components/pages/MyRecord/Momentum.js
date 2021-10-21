@@ -80,6 +80,7 @@ const Momentem = () => {
     }
 
     const handleOnSelect = (date) => {
+        //setSaveBtn(false)
         setIsModalVisible(true)
         setSelectDay(date.format("YYYY-MM-DD"))
     }
@@ -167,6 +168,7 @@ const Momentem = () => {
                         style={{ width: 80 }}
                     >
                         <Input placeholder="총 라이딩 시간" value={ridingTime} onChange={onRidingTimeChange} />
+                        <StyledTooltip><ExclamationCircleFilled /> 시간 단위로 숫자를 입력해 주세요 (ex. 1시간 : 1)</StyledTooltip>
                     </Modal>
             </StyledBottomLeftContainer>
 
@@ -174,7 +176,7 @@ const Momentem = () => {
                     <StyledRecordTitle>칼로리 기록표</StyledRecordTitle>
                     <ul>
                         {
-                            setSaveBtn && (
+                            saveBtn && (
                                 
                                 <li><span>{selectDay}</span> <span>{ridingTime} cal</span></li> 
                             )

@@ -2,14 +2,16 @@ import React, { useRef, useState }from 'react';
 import locale from "antd/es/calendar/locale/ko_KR";
 import styled from 'styled-components';
 import { Modal, Button, Form, Input, Rate, InputNumber, Upload, Calendar } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined, PushpinFilled } from '@ant-design/icons';
 
 const StyledCalendar = styled(Calendar)`
-    .ant-tabs-content-holder {
-        margin: 0 20px;
-    }
+    width: 95%;
+    margin: 0 auto;
+    padding: 0 10px;
+    font-size: 18px;
+    border-radius: 8px;
     .ant-picker-calendar-header {
-        padding: 10px;
+        padding: 15px 10px;
     }
     .ant-picker-calendar-mode-switch {
         display: none;
@@ -21,14 +23,14 @@ const Mileage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [clicked, setClicked] = useState(false)
 
+    const distanceValue = useRef('');
+
     const normFile = (e) => {
         if (Array.isArray(e)) {
           return e;
         }
          return e && e.fileList;
     };
-    const distanceValue = useRef('');
-
 
     const onSelectDateCell = (date) => {
         setIsModalOpen(true)
@@ -45,31 +47,14 @@ const Mileage = () => {
         setIsModalOpen(!isModalOpen)
     };
 
-    
-    // const getModalContents = (data) => {
-    //     console.log(data, "데이터 받아온 모달데이터")
-
-    //     return (
-    //         <div>{data}</div>
-    //     )
-    // }
-
     const dateCellRender = (value) => {
         //console.log(selectDay, '셀렉트데이')
-        const saveBtn = document.getElementById("save")
         const distancevalues = distanceValue?.current.value;
         console.log(distancevalues, '디스턴스밸류')
 
-        //let thisCell = onSelectDateCell();
-
-            let calendarData; // 선택한날짜
-            let dailyContents;  // 기입내용
-           
-
-              if (selectDay === value.format("YYYY-MM-DD") && clicked ) {
-                return <div>{distancevalues} km</div>
-              }
-  
+        if (selectDay === value.format("YYYY-MM-DD") && clicked ) {
+            return <div><PushpinFilled style={{color: "red"}}/>{distancevalues} km</div>
+        }
     }
 
     return (
@@ -79,13 +64,6 @@ const Mileage = () => {
                 onSelect={onSelectDateCell}  // 날짜가 선택되었을 때 발생하는 이벤트
                 dateCellRender={dateCellRender}
             />
-            {/* {isModalOpen && <DateModal
-                handleOk={handleOk}
-                handleClose={handleClose}
-                selectDay={selectDay}
-                isModalOpen={isModalOpen}
-                modalContents={getModalContents}
-            />} */}
 
             {isModalOpen && <Modal
                 visible={isModalOpen}
@@ -118,7 +96,7 @@ const Mileage = () => {
                         name={['distance']}
                         rules={[{ type: 'number', min: 0, max: 99999 }]}
                     >
-                        <InputNumber ref={distanceValue} value={distanceValue.current.value} style={{ width: '100%' }} placeholder="총 주행거리"  />
+                        <InputNumber ref={distanceValue} value={distanceValue.current.value} style={{ width: '100%' }} placeholder="총 주행거리(km)"  />
                     </Form.Item>
                     <Form.Item name="rate" style={{display:"flex"}}>
                     <span style={{marginRight:"10px"}}>셀프 평점</span> <Rate defaultValue="3.5"/>
