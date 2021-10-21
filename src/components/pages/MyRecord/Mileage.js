@@ -1,11 +1,20 @@
 import React, { useRef, useState }from 'react';
-//import DateModal from './DateModal';
-import { Calendar } from "antd";
 import locale from "antd/es/calendar/locale/ko_KR";
-
-import { Modal, Button, Form, Input, Rate, InputNumber, Upload, } from "antd";
+import styled from 'styled-components';
+import { Modal, Button, Form, Input, Rate, InputNumber, Upload, Calendar } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 
+const StyledCalendar = styled(Calendar)`
+    .ant-tabs-content-holder {
+        margin: 0 20px;
+    }
+    .ant-picker-calendar-header {
+        padding: 10px;
+    }
+    .ant-picker-calendar-mode-switch {
+        display: none;
+    }
+`;
 
 const Mileage = () => {
     const [selectDay, setSelectDay] = useState([]);
@@ -65,7 +74,7 @@ const Mileage = () => {
 
     return (
         <>
-            <Calendar
+            <StyledCalendar
                 locale={locale}
                 onSelect={onSelectDateCell}  // 날짜가 선택되었을 때 발생하는 이벤트
                 dateCellRender={dateCellRender}

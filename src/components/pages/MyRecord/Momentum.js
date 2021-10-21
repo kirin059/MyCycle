@@ -16,7 +16,7 @@ const StyledBottomLeftContainer = styled.div`
     border-radius: 8px;
     .ant-picker-calendar-mini {
         border-radius: 8px;
-        width: 270px;
+        width: 280px;
     }
     .ant-picker-calendar-header {
         background-color: transparent;
