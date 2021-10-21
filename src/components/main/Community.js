@@ -1,6 +1,9 @@
 import React from 'react';
 import { Tabs } from 'antd';
 import styled from 'styled-components';
+import Place from '../pages/Community/Place'
+import Grouping from '../pages/Community/Grouping'
+import Challenge from '../pages/Community/Challenge';
 
 const StyledTapContainer = styled(Tabs)`
     margin: 20px auto;
@@ -28,13 +31,13 @@ const Community = () => {
         <>
             <StyledTapContainer defaultActiveKey="1" centered>
                 <TabPane tab="Hot Place" key="1"  size="large">
-                핫플
+                    <Place />
                 </TabPane>
-                <TabPane tab="We Riding" key="2"  size="large">
-                정모
+                <TabPane tab="Grouping" key="2"  size="large">
+                    <Grouping />
                 </TabPane>
                 <TabPane tab="My Challenge" key="3"  size="large">
-                My Challenge
+                    <Challenge />
                 </TabPane>
             </StyledTapContainer>
 
