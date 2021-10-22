@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Progress, PageHeader, Tag, Input, Form, Button, Calendar, Modal, Typography } from "antd";
 import styled from 'styled-components';
+import moment from 'moment';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 
 const StyledTopContainer = styled.div`
@@ -64,6 +65,16 @@ const StyledTooltip = styled.div`
     }
 `;
 
+const StyledCalInput = styled(Input)`
+    width: 320px;
+    margin-right: 15px;
+    background-color: coral;
+    color: #fff;
+    border-radius: 3px;
+    border: none;
+    padding: 5px 8px;
+`;
+
 const Momentem = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectDay, setSelectDay] = useState([]);
@@ -76,9 +87,11 @@ const Momentem = () => {
         times: ''
     })
 
-    
-    const sum = Math.floor(weight * 0.113 * times * 0.01);
     const { cal, weight, times } = inputs;
+    const sum = Math.floor(weight * 0.113 * times * 0.01);
+
+    const month = moment()._d.getMonth() +1
+    console.log(month)
 
     const handleOnSelect = (date) => {
         setSaveBtn(false)
@@ -93,14 +106,6 @@ const Momentem = () => {
     const handleOk = () => {
         setIsModalVisible(false);
         setSaveBtn(true)
-        
-        // if (setSaveBtn) {
-        //     return (
-        //         <li>{selectDay} {cal + weight + time} cal</li> 
-        //     )
-        // }
-        
-        // 칼로리 기록표 안에 계산된value값 + 날짜 넣기 (0.113 -> 22km/h)
     };
   
   
@@ -127,13 +132,11 @@ const Momentem = () => {
                             <Button htmltype="submit" type="primary"> 저장 </Button>
                         ]}
                     >
-                        <Input
+                        <StyledCalInput
                             name="cal"
                             value={cal}
                             onChange={onChangeValue}
-                            placeholder="목표 칼로리(cal)"
-                            style={{ width: 300, marginRight: "15px" }}
-                            prefix={<span>{ }월 목표 소모 칼로리</span>};
+                            prefix={<strong>{month}월 목표 소모 칼로리</strong> }
                             suffix={ <span>cal</span> }
                         />
                         <Input
@@ -141,7 +144,7 @@ const Momentem = () => {
                             value={weight}
                             onChange={onChangeValue}
                             placeholder="현재 몸무게(kg)"
-                            style={{ width: 300 }}
+                            style={{ width: 270 }}
                             suffix={<span>kg</span>}
                         />
                         <StyledTooltip><ExclamationCircleFilled /> 평균 라이딩 속도 22km/h를 기준으로 칼로리 변환을 측정하였습니다.</StyledTooltip>

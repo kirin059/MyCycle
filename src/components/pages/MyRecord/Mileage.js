@@ -48,9 +48,7 @@ const Mileage = () => {
     };
 
     const dateCellRender = (value) => {
-        //console.log(selectDay, '셀렉트데이')
         const distancevalues = distanceValue?.current.value;
-        console.log(distancevalues, '디스턴스밸류')
 
         if (selectDay === value.format("YYYY-MM-DD") && clicked ) {
             return <div><PushpinFilled style={{color: "red"}}/>{distancevalues} km</div>
