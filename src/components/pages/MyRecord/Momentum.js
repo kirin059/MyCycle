@@ -21,17 +21,19 @@ const StyledBottomLeftContainer = styled.div`
     .ant-picker-calendar-header {
         background-color: transparent;
     }
-    .ant-picker-calendar-mode-switch {
+    .ant-picker-calendar-mode-switch, .ant-picker-calendar-year-select {
         display: none;
     }
-    .ant-picker-calendar-year-select {
-        display: none;
+    .ant-typography {
+        margin: 5px 0;
     }
 `;
 
 const StyledRecordTitle = styled.div`
     padding: 12px 0;
     border-bottom : 1px solid #e1e2e1;
+    font-weight: 800;
+    font-size: 20px;
 `;
 
 const StyledBottomRightContainer = styled.div`
@@ -43,8 +45,11 @@ const StyledBottomRightContainer = styled.div`
         list-style: none;
         padding: 0;
      }
+     li {
+         padding: 10px 0;
+     }
      span {
-         padding: 0 10px;
+         padding: 0 20px;
      }
 `;
 
@@ -65,44 +70,47 @@ const Momentem = () => {
 
     const [saveBtn, setSaveBtn] = useState(false);
 
-    const [ridingTime, setRidingTime] = useState('')
+    const [inputs, setInputs] = useState({
+        cal: '',
+        weight: '',
+        times: ''
+    })
 
-    const [inputsValue, setInputsValue] = useState({})
-    const { cal, weight } = inputsValue;
-
-    const onChangeValue = (e) => {
-        const { value, name } = e.target;
-        console.log("name :", name, " [name] :", [name], "value :", value);
-        setInputsValue({
-            ...inputsValue,
-            [name]: value
-        });
-    }
+    
+    const sum = Math.floor(weight * 0.113 * times * 0.01);
+    const { cal, weight, times } = inputs;
 
     const handleOnSelect = (date) => {
-        //setSaveBtn(false)
+        setSaveBtn(false)
         setIsModalVisible(true)
         setSelectDay(date.format("YYYY-MM-DD"))
     }
   
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+    
     const handleOk = () => {
         setIsModalVisible(false);
         setSaveBtn(true)
-        if (setSaveBtn) {
-            return (
-                <li>{selectDay} {ridingTime} cal</li> 
-            )
-        }
+        
+        // if (setSaveBtn) {
+        //     return (
+        //         <li>{selectDay} {cal + weight + time} cal</li> 
+        //     )
+        // }
         
         // 칼로리 기록표 안에 계산된value값 + 날짜 넣기 (0.113 -> 22km/h)
     };
   
-    const handleCancel = () => {
-      setIsModalVisible(false);
-    };
   
-    const onRidingTimeChange = (e) => {
-        setRidingTime(e.target.value)
+    const onChangeValue = (e) => {
+           
+        const { name, value } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        })
     }
 
     return (
@@ -124,13 +132,18 @@ const Momentem = () => {
                             value={cal}
                             onChange={onChangeValue}
                             placeholder="목표 칼로리(cal)"
-                            style={{ width: 300, marginRight: "15px" }} />
+                            style={{ width: 300, marginRight: "15px" }}
+                            prefix={<span>{ }월 목표 소모 칼로리</span>};
+                            suffix={ <span>cal</span> }
+                        />
                         <Input
                             name="weight"
                             value={weight}
                             onChange={onChangeValue}
                             placeholder="현재 몸무게(kg)"
-                            style={{ width: 300 }} />
+                            style={{ width: 300 }}
+                            suffix={<span>kg</span>}
+                        />
                         <StyledTooltip><ExclamationCircleFilled /> 평균 라이딩 속도 22km/h를 기준으로 칼로리 변환을 측정하였습니다.</StyledTooltip>
                     </PageHeader>
                 </Form>
@@ -142,12 +155,12 @@ const Momentem = () => {
                         '0%': '#108ee9',
                         '100%': '#87d068',
                     }}
-                    percent={80}
+                    percent={sum}
                 />
             </StyledTopContainer>
 
             <div style={{display:"flex"}}>
-            <StyledBottomLeftContainer >
+                <StyledBottomLeftContainer >
                     <Calendar
                         fullscreen={false}
                         onSelect={handleOnSelect}
@@ -155,7 +168,6 @@ const Momentem = () => {
                             return (
                             <div style={{ padding: 8 }}>
                                 <Typography.Title level={4}>일일 라이딩시간(h) 기록표</Typography.Title>
-                            
                             </div>
                             );
                         }}
@@ -167,22 +179,21 @@ const Momentem = () => {
                         onOk={handleOk}
                         style={{ width: 80 }}
                     >
-                        <Input placeholder="총 라이딩 시간" value={ridingTime} onChange={onRidingTimeChange} />
-                        <StyledTooltip><ExclamationCircleFilled /> 시간 단위로 숫자를 입력해 주세요 (ex. 1시간 : 1)</StyledTooltip>
+                        <Input placeholder="총 라이딩 시간" name="times" value={times} onChange={onChangeValue} />
+                        <StyledTooltip><ExclamationCircleFilled /> 분 단위로 숫자를 입력해 주세요 (ex. 1시간: 60)</StyledTooltip>
                     </Modal>
-            </StyledBottomLeftContainer>
+                </StyledBottomLeftContainer>
 
                 <StyledBottomRightContainer>
                     <StyledRecordTitle>칼로리 기록표</StyledRecordTitle>
                     <ul>
                         {
                             saveBtn && (
-                                
-                                <li><span>{selectDay}</span> <span>{ridingTime} cal</span></li> 
+                                <li><span>{selectDay}</span> <span><strong>{Math.round(weight * 0.113 * times)}</strong> cal</span></li> 
                             )
                         }
                     </ul>
-            </StyledBottomRightContainer>
+                </StyledBottomRightContainer>
             </div>
         </>
     );
