@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Progress, PageHeader, Tag, Input, Form, Button, Calendar, Modal, Typography } from "antd";
+import { Progress, PageHeader, Tag, Input, Form, Button, Calendar, Modal, Typography, Alert } from "antd";
 import styled from 'styled-components';
 import moment from 'moment';
 import { ExclamationCircleFilled } from '@ant-design/icons';
@@ -118,6 +118,8 @@ const Momentem = () => {
         })
     }
 
+    const sumCal = Math.round(weight * 0.113 * times)
+
     return (
         <>
             <StyledTopContainer>
@@ -192,7 +194,22 @@ const Momentem = () => {
                     <ul>
                         {
                             saveBtn && (
-                                <li><span>{selectDay}</span> <span><strong>{Math.round(weight * 0.113 * times)}</strong> cal</span></li> 
+                                <li>                                    
+                                    {
+                                        weight && times
+                                        ?
+                                        <>
+                                            <span>{selectDay}</span>
+                                            <span><strong>{ sumCal }</strong> cal</span>
+                                        </>
+                                        :
+                                        <Alert
+                                            message="몸무게와 라이딩시간을 모두 입력해주세요"
+                                            type="warning"
+                                            closable
+                                            />
+                                    }
+                                </li>
                             )
                         }
                     </ul>
