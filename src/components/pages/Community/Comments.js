@@ -1,6 +1,7 @@
 import React, { createElement, useState } from "react";
 import { Comment, Tooltip, Avatar, Button } from "antd";
 import moment from "moment";
+import styled from 'styled-components';
 import {
   DislikeOutlined,
   LikeOutlined,
@@ -8,7 +9,13 @@ import {
   LikeFilled
 } from "@ant-design/icons";
 
-const Comments = () => {
+const StyledComment = styled(Comment)`
+    margin: 10px 15px;
+    width: 100%;
+`;
+
+const Comments = (props) => {
+    console.log('프롭스', props)
     const [likes, setLikes] = useState(0);
     const [dislikes, setDislikes] = useState(0);
     const [action, setAction] = useState(null);
@@ -27,42 +34,39 @@ const Comments = () => {
 
     const actions = [
         <Tooltip key="comment-basic-like" title="Like">
-        <span onClick={like}>
-            {createElement(action === "liked" ? LikeFilled : LikeOutlined)}
-            <span className="comment-action">{likes}</span>
-        </span>
+            <span onClick={like}>
+                {createElement(action === "liked" ? LikeFilled : LikeOutlined)}
+                <span className="comment-action">{likes}</span>
+            </span>
         </Tooltip>,
         <Tooltip key="comment-basic-dislike" title="Dislike">
-        <span onClick={dislike}>
-            {React.createElement(
-            action === "disliked" ? DislikeFilled : DislikeOutlined
-            )}
-            <span className="comment-action">{dislikes}</span>
-        </span>
+            <span onClick={dislike}>
+                {React.createElement(
+                action === "disliked" ? DislikeFilled : DislikeOutlined
+                )}
+                <span className="comment-action">{dislikes}</span>
+            </span>
         </Tooltip>,
         <Button key="comment-basic-reply-to">Reply to</Button>
     ];
     return (
         <>
-            <Comment
+            {
+                props.show && <StyledComment
                 style={{textAlign:"left"}}
                 actions={actions}
-                author={<a>Han Solo</a>}
+                author={ props.name}
                 avatar={
                     <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
                 }
-                content={
-                    <p>
-                    We supply a series of design principles, practical patterns and high
-                    
-                    </p>
-                }
+                content={ props.comment}
                 datetime={
                     <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>
-                    <span>{moment().fromNow()}</span>
+                        <span>{moment().fromNow()}</span>
                     </Tooltip>
                 }
             />
+            }
         </>
     );
 };
