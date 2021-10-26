@@ -1,5 +1,5 @@
 import React, { createElement, useState } from "react";
-import { Comment, Tooltip, Avatar, Button } from "antd";
+import { Comment, Tooltip, Avatar, Button, Input } from "antd";
 import moment from "moment";
 import styled from 'styled-components';
 import {
@@ -14,8 +14,11 @@ const StyledComment = styled(Comment)`
     width: 100%;
 `;
 
-const Comments = (props) => {
-    console.log('프롭스', props)
+const Comments = ({commentLists}) => {
+    console.log(commentLists, '프롭스로 commentLists잘넘어왔나')
+
+    const { text } = commentLists;
+
     const [likes, setLikes] = useState(0);
     const [dislikes, setDislikes] = useState(0);
     const [action, setAction] = useState(null);
@@ -32,6 +35,21 @@ const Comments = (props) => {
         setAction("disliked");
     };
 
+    const handleReplay = () => {
+        const replayInput = document.getElementById('replayInput')
+        const replayButton = document.getElementById('replayButton')
+
+        replayInput.style.display = 'block';
+        replayButton.style.display = 'block';
+    }
+    const handleSubmitReply = () => {
+        const replayInput = document.getElementById('replayInput')
+        const replayButton = document.getElementById('replayButton')
+
+        replayInput.style.display = 'none';
+        replayButton.style.display = 'none';
+    }
+
     const actions = [
         <Tooltip key="comment-basic-like" title="Like">
             <span onClick={like}>
@@ -47,26 +65,32 @@ const Comments = (props) => {
                 <span className="comment-action">{dislikes}</span>
             </span>
         </Tooltip>,
-        <Button key="comment-basic-reply-to">Reply to</Button>
+        <Button key="comment-basic-reply-to" onClick={handleReplay}>Reply to</Button>,
+        <Input id="replayInput" style={{ display: "none", width: "350px" }} placeholder="Replay to ..." />,
+        <Button id="replayButton" style={{ display: "none" }} onClick={handleSubmitReply}>reply</Button>
+ 
     ];
+
     return (
         <>
             {
-                props.show && <StyledComment
-                style={{textAlign:"left"}}
-                actions={actions}
-                author={ props.name}
-                avatar={
-                    <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
-                }
-                content={ props.comment}
-                datetime={
-                    <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>
-                        <span>{moment().fromNow()}</span>
-                    </Tooltip>
-                }
-            />
+                commentLists.map((a, i) =>
+                (<StyledComment
+                    key={i}
+                    style={{textAlign:"left"}}
+                    actions={actions}
+                    author={"Logged in ID"}
+                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" /> }
+                    content={commentLists[i].text}
+                    datetime={
+                        <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>
+                            <span>{moment().fromNow()}</span>
+                        </Tooltip>
+                    }
+                >
+                </StyledComment>))
             }
+            
         </>
     );
 };

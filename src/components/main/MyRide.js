@@ -101,12 +101,11 @@ const { kakao } = window;
 const MyRide = () => {
   const [inputText, setInputText] = useState("");
   const [place, setPlace] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [placeId, setPlaceId] = useState("");
-
-  const [trafficBtnToggle, setTrafficBtnToggle] = useState(false);
-  const [loadBtnToggle, setLoadBtnToggle] = useState(false);
-  const [bicycleBtnToggle, setBicycleBtnToggle] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isTrafficBtn, setIsTrafficBtn] = useState(false);
+  const [isloadBtn, setIsLoadBtn] = useState(false);
+  const [isBicycleBtn, setIsBicycleBtn] = useState(false);
 
   const searchInputOnChange = (e) => {
     setInputText(e.target.value);
@@ -157,11 +156,11 @@ const MyRide = () => {
       });
    }
    
-   trafficBtnToggle ? map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC) : map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
-   loadBtnToggle ? map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW) : map.removeOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);    
-   bicycleBtnToggle ? map.addOverlayMapTypeId(kakao.maps.MapTypeId.BICYCLE) : map.removeOverlayMapTypeId(kakao.maps.MapTypeId.BICYCLE);
+   isTrafficBtn ? map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC) : map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+   isloadBtn ? map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW) : map.removeOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);    
+   isBicycleBtn ? map.addOverlayMapTypeId(kakao.maps.MapTypeId.BICYCLE) : map.removeOverlayMapTypeId(kakao.maps.MapTypeId.BICYCLE);
    
-}, [place, trafficBtnToggle, loadBtnToggle, bicycleBtnToggle]);
+}, [place, isTrafficBtn, isloadBtn, isBicycleBtn]);
 
   
   const handleOk = () => {
@@ -170,8 +169,8 @@ const MyRide = () => {
 
   const handleTrafficOption = () => {
     const trafficBtn = document.getElementById('trafficBtn').style;
-    setTrafficBtnToggle(!trafficBtnToggle);
-    if (trafficBtnToggle) {
+    setIsTrafficBtn(!isTrafficBtn);
+    if (isTrafficBtn) {
       trafficBtn.backgroundColor = 'white'
       trafficBtn.color = 'coral'
     }
@@ -183,8 +182,8 @@ const MyRide = () => {
 
   const handleLoadOption = () => {
     const loadBtn = document.getElementById('loadBtn').style;
-    setLoadBtnToggle(!loadBtnToggle);
-    if (!loadBtnToggle) {
+    setIsLoadBtn(!isloadBtn);
+    if (!isloadBtn) {
       loadBtn.backgroundColor = 'coral'
       loadBtn.color = 'white'
     }
@@ -196,8 +195,8 @@ const MyRide = () => {
 
   const handleBicycleOption = () => {
     const bicycleBtn = document.getElementById('bicycleBtn').style;
-    setBicycleBtnToggle(!bicycleBtnToggle);
-    if (!bicycleBtnToggle) {
+    setIsBicycleBtn(!isBicycleBtn);
+    if (!isBicycleBtn) {
       bicycleBtn.backgroundColor = 'coral'
       bicycleBtn.color = 'white'
     }
