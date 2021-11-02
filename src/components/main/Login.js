@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
 
-
 const StyledForm = styled(Form)`
+    margin-top: 10%;
     padding: 40px;
     width: 350px;
     border-radius: 8px;
@@ -16,15 +16,33 @@ const StyledForm = styled(Form)`
 `;
 
 const Login = () => {
-    const history = useHistory();
-    const onFinish = (values) => {
-        console.log(values);  // localstorage 적용하기
-    };
+    const [userInfo, setUserInfo] = useState(
+        () => JSON.parse(window.localStorage.getItem("values")) || null
+    );
 
+    useEffect(() => {
+        localStorage.getItem("values")
+    }, [userInfo]);
+
+    const history = useHistory();
+    const onFinish = () => {
+        const idValue = document.querySelector("input[name=id]").value
+        const pwValue = document.querySelector("input[name=pw]").value
+        console.log(idValue, '로그인 id 입력값')
+        console.log(userInfo.userId, '회원가입 id 입력값')
+        console.log(pwValue, '로그인 pw 입력값')
+        console.log(userInfo.password, '회원가입 pw 입력값')
+
+        if (idValue === userInfo.userId && pwValue === userInfo.password) {
+            history.push("/")
+        }
+        else {
+            alert("아이디 또는 비밀번호를 확인해주세요")
+        }
+    };
 
     return (
         <div>
-            
             <StyledForm
                 name="normal_login"
                 className="login-form"
@@ -37,6 +55,7 @@ const Login = () => {
                     rules={[{ required: true, message: 'ID를 입력해 주세요' }]}
                 >
                     <Input
+                        name="id"
                         prefix={<UserOutlined className="site-form-item-icon" />}
                         placeholder="ID"
                         style={{ borderRadius: "5px" }}
@@ -47,6 +66,8 @@ const Login = () => {
                     rules={[{ required: true, message: '비밀번호를 입력해 주세요' }]}
                 >
                     <Input
+                        name="pw"
+                        autocomplete="on"
                         prefix={<LockOutlined className="site-form-item-icon" />}
                         type="password"
                         placeholder="Password"
@@ -58,7 +79,12 @@ const Login = () => {
                     <Button type="primary" htmlType="submit" className="login-form-button">
                     Log in
                     </Button>
-                    <div style={{fontSize:"18px", marginTop:"35px"}}> If you are not out member, <strong><span style={{color:"#1990FF", cursor:"pointer"}} onClick={ () => {history.push("/signup")}}>register now</span></strong> </div>
+                    <div style={{ fontSize: "15px", marginTop: "35px" }}> If you are not out member,<br />
+                        <strong><span style={{ color: "#1990FF", cursor: "pointer" }}
+                            onClick={() => { history.push("/signup") }}>
+                            register now
+                        </span></strong>
+                    </div>
                 </Form.Item>
             </StyledForm>
 
