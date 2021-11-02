@@ -39,6 +39,11 @@ const Challenge = () => {
         setCommentLists(commentLists.concat(comment));
     }
 
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+        handleSubmit();
+        }
+    };
     
     return (
         <div style={{backgroundColor: "#fff", width:"550px", height:"100%", borderRadius:"8px"}}>
@@ -50,7 +55,29 @@ const Challenge = () => {
             </StyledMainContainer>
       
             <StyledCommentContainer>
-                {/* <Input  />  */}
+                {/* <Form
+                    onSubmit={handleSubmit}
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                    <Input
+                        ref={ref}
+                        type="text"
+                        name="text"
+                        value={content}
+                        onChange={handleChange}
+                        prefix={<EditOutlined />}
+                        placeholder="You can write to share..."
+                        style={{width: "400px", marginRight:"10px"}}
+                    />
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        onClick={handleSubmit}
+                        onKeyPress={handleKeyPress}
+                    >
+                        Comment
+                    </Button>
+                </Form> */}
             </StyledCommentContainer>
         </div>
     );

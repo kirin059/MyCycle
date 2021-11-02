@@ -79,7 +79,7 @@ const Momentem = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectDay, setSelectDay] = useState([]);
 
-    const [saveBtn, setSaveBtn] = useState(false);
+    const [isSaveBtn, setIsSaveBtn] = useState(false);
 
     const [inputs, setInputs] = useState({
         cal: '',
@@ -94,7 +94,7 @@ const Momentem = () => {
     console.log(month)
 
     const handleOnSelect = (date) => {
-        setSaveBtn(false)
+        setIsSaveBtn(false)
         setIsModalVisible(true)
         setSelectDay(date.format("YYYY-MM-DD"))
     }
@@ -105,7 +105,7 @@ const Momentem = () => {
     
     const handleOk = () => {
         setIsModalVisible(false);
-        setSaveBtn(true)
+        setIsSaveBtn(true)
     };
   
   
@@ -193,7 +193,7 @@ const Momentem = () => {
                     <StyledRecordTitle>칼로리 기록표</StyledRecordTitle>
                     <ul>
                         {
-                            saveBtn && (
+                            isSaveBtn && (
                                 <li>                                    
                                     {
                                         weight && times
@@ -207,7 +207,7 @@ const Momentem = () => {
                                             message="몸무게와 라이딩시간을 모두 입력해주세요"
                                             type="warning"
                                             closable
-                                            />
+                                        />
                                     }
                                 </li>
                             )

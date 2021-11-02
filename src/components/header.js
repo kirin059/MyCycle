@@ -69,7 +69,9 @@ const Header = () => {
                         <li onClick={ () => {history.push("/myride")}}>My Ride</li>
                         <li onClick={ () => {history.push("/myrecord")}}>My Record</li>
                         <li onClick={ () => {history.push("/community")}}>Community</li>
-                        <div style={{paddingTop: '12px'}}><StyledLoginIcon /></div>
+                        <div style={{ paddingTop: '12px' }}
+                            onClick={ () => {history.push("/login")}}
+                        ><StyledLoginIcon /></div>
                     </StyledMenu>
 
                 </StyledHeader>

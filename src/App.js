@@ -8,6 +8,8 @@ import Community from './components/main/Community';
 import Footer from './components/footer';
 import styled from 'styled-components';
 import './App.css';
+import Login from './components/main/Login';
+import Signup from './components/main/Signup';
 
 const StyledMainContainer = styled.div`
   display: flex;
@@ -25,7 +27,9 @@ function App() {
         <Header />
         <StyledMainContainer>
           <Switch>  
-              <Route exact path="/" component={MainDefault} />         
+              <Route exact path="/" component={MainDefault} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />  
               <Route path="/myride" component={MyRide} />         
               <Route path="/myrecord" component={MyRecord} />           
               <Route path="/community" component={Community} />
