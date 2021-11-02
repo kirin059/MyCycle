@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Modal } from 'antd';
-import { SearchOutlined, DownOutlined } from '@ant-design/icons';
+import { SearchOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css'
 
 const StyledInputContainer = styled.div`
@@ -38,17 +38,24 @@ const StyledInputContainer = styled.div`
   }
 `;
 
-const StyledMoreOption = styled(DownOutlined)`
-  padding: 2px;
-  border: 3.5px solid coral;
-  border-radius: 8px;
-  font-size: 25px;
+const StyledMoreOption = styled(EnvironmentOutlined)`
+  padding: 0 0 0 5px;
+  font-size: 20px;
   color: #fff;
   background-color: coral;
+  cursor: pointer;
+`;
+
+const StyledOptionMap = styled.div`
+  padding: 7px;
+  background-color: coral;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
   transition: transform 300ms ease;
   cursor: pointer;
   :hover {
-    transform: scale(1.1);
+    transform: scale(1.03);
   }
 `;
 
@@ -62,16 +69,6 @@ const StyledModal = styled(Modal)`
     height: 150px;
     margin: auto;
   }
-  img {
-    width: 45px !important;
-    height: 45px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 300ms ease;
-    :hover {
-      transform: scale(1.1);
-    }
-  }
   #trafficBtn, #loadBtn, #bicycleBtn {
     margin-right: 3%;
     color: coral;
@@ -82,6 +79,17 @@ const StyledModal = styled(Modal)`
     :hover {
       transform: scale(1.1);
     }
+  }
+`;
+
+const StyledImg = styled.img`
+  width: 40px !important;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 300ms ease;
+  :hover {
+    transform: scale(1.1);
   }
 `;
 
@@ -217,8 +225,8 @@ const MyRide = () => {
               <Button id="search" htmlType="submit" icon={<SearchOutlined />}> Search </Button>
             </div>
             <div style={{ display:"flex", alignItems:"center" }}>
-              <StyledMoreOption onClick={showModal} />
-              <img src={require("../../img/kakao_navi.png").default}
+              <StyledOptionMap onClick={showModal} >지도옵션보기<StyledMoreOption/></StyledOptionMap>
+              <StyledImg src={require("../../img/kakao_navi.png").default}
                 onClick={() => {
                     handleOk();
                     window.open(`https://map.kakao.com/link/to/${placeId}`);

@@ -28,10 +28,6 @@ const Login = () => {
     const onFinish = () => {
         const idValue = document.querySelector("input[name=id]").value
         const pwValue = document.querySelector("input[name=pw]").value
-        console.log(idValue, '로그인 id 입력값')
-        console.log(userInfo.userId, '회원가입 id 입력값')
-        console.log(pwValue, '로그인 pw 입력값')
-        console.log(userInfo.password, '회원가입 pw 입력값')
 
         if (idValue === userInfo.userId && pwValue === userInfo.password) {
             history.push("/")
