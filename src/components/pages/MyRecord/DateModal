@@ -6,10 +6,8 @@ const DateModal = (props) => {
   console.log(props, 'props')
   const distanceValue = useRef(null);
 
-  //selectDay: "2021-10-21"
   const hadleSaveData = () => {
     props.modalContents(distanceValue.current.value)
-    //props.selectDay(distanceValue.current.selectDay)
   }
 
   const normFile = (e) => {
@@ -37,9 +35,6 @@ const DateModal = (props) => {
             layout="vertical"
             name="form_in_modal"
             onFinish={props.handleOk}
-            //onSubmit={handleSubmit(onSubmit)}
-            //onFinish={onFinish}
-        
         >
             <Form.Item
                 name={['start']}   

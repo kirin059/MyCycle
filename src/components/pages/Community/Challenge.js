@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Comment from './Comments'
+import InputComment from './InputComment'
 import styled from 'styled-components';
+import Auth from './Auth';
 
 const StyledMainContainer = styled.div`
     padding: 18px;
@@ -14,7 +15,7 @@ const StyledTopHeader = styled.div`
     background-color: yellow;
     border-radius: 8px;
     padding: 10px;
-    color: #fff;
+    color: grey;
     font-size: 17px;
 
 `;
@@ -51,33 +52,11 @@ const Challenge = () => {
                 <StyledTopHeader>
                     함께 모여서 그룹라이딩 해봐요
                 </StyledTopHeader>         
-                <Comment commentLists={commentLists} />
+                <Auth commentLists={commentLists} />
             </StyledMainContainer>
       
             <StyledCommentContainer>
-                {/* <Form
-                    onSubmit={handleSubmit}
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                    <Input
-                        ref={ref}
-                        type="text"
-                        name="text"
-                        value={content}
-                        onChange={handleChange}
-                        prefix={<EditOutlined />}
-                        placeholder="You can write to share..."
-                        style={{width: "400px", marginRight:"10px"}}
-                    />
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        onClick={handleSubmit}
-                        onKeyPress={handleKeyPress}
-                    >
-                        Comment
-                    </Button>
-                </Form> */}
+                <InputComment onSubmit={handleSubmit}  />
             </StyledCommentContainer>
         </div>
     );

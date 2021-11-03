@@ -32,12 +32,6 @@ const Mileage = () => {
          return e && e.fileList;
     };
 
-    const onSelectDateCell = (date) => {
-        setIsModalOpen(true)
-        setSelectDay(date.format("YYYY-MM-DD"))
-        dateCellRender(date)
-    };
-
     const handleOk = () => {
         setIsModalOpen(!isModalOpen)
         setClicked(true)
@@ -45,6 +39,12 @@ const Mileage = () => {
     
     const handleClose = () => {
         setIsModalOpen(!isModalOpen)
+    };
+
+    const onSelectDateCell = (date) => {
+        setIsModalOpen(true)
+        setSelectDay(date.format("YYYY-MM-DD"))
+        dateCellRender(date)
     };
 
     const dateCellRender = (value) => {
