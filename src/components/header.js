@@ -115,6 +115,19 @@ const Header = () => {
         setIsShow(!isShow);
     }
 
+    const handleMenuList1 = () => {
+        history.push("/myride")
+        setIsShow(!isShow)
+    }
+    const handleMenuList2 = () => {
+        history.push("/myrecord")
+        setIsShow(!isShow)
+    }
+    const handleMenuList3 = () => {
+        history.push("/community")
+        setIsShow(!isShow)
+    }
+
     return (
         <>
             <StyledContainer>
@@ -125,9 +138,9 @@ const Header = () => {
                             isShow
                             ? (
                                 <StyledMenu>
-                                    <li onClick={ () => {history.push("/myride")}}>My Ride</li>
-                                    <li onClick={ () => {history.push("/myrecord")}}>My Record</li>
-                                    <li onClick={ () => {history.push("/community")}}>Community</li>
+                                    <li onClick={ handleMenuList1 }>My Ride</li>
+                                    <li onClick={ handleMenuList2 }>My Record</li>
+                                    <li onClick={ handleMenuList3 }>Community</li>
                                 </StyledMenu>
                             )
                             : null
