@@ -3,19 +3,39 @@ import styled from 'styled-components';
 
 const StyledContainer = styled.div`
   width: 60vw;
-  overflow: hidden; 
+  overflow: hidden;
+
+  @media only screen and (max-width: 768px) {
+    //width: ${props => (props.span ? (props.span / 12) * 100 : "8.33")}%;
+    width: 80vw;
+  }
+
+  @media only screen and (max-width: 480px) {
+    //width: ${props => (props.span ? (props.span / 12) * 100 : "8.33")}%;
+    width: 95vw;
+  }
 `;
 
 const StyledSliderContainer = styled.div`
   margin-top: 30%;
   width: 100%;
-  display: flex; 
+  display: flex;
 `;
 
 const StyledImg = styled.img`
   width: 500px;
   height: 480px;
   margin: 0 20px;
+  
+  @media only screen and (max-width: 768px) {
+    width: 400px;
+    height: 400px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 300px;
+    height: 300px;
+  }
 `;
 
 const TOTAL_SLIDES = 5;
@@ -23,7 +43,7 @@ const TOTAL_SLIDES = 5;
 const MainDefault = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slideRef = useRef(null); 
-    //const colorNameArr = ['blue', 'yellow', 'red', 'lightgreen', 'purple' , 'green', 'grey']
+
     const nextSlide = () => {
         if (currentSlide >= TOTAL_SLIDES) {
             setCurrentSlide(0);
@@ -42,30 +62,20 @@ const MainDefault = () => {
         return () => { clearInterval(interval)}
     }, [currentSlide]);
     
+    const arr = [1,2,3,4,5,6,7]
 
     return (
         <>
             <StyledContainer>
-            <StyledSliderContainer ref={slideRef} >
-                    {/* {
-                        colorNameArr.map((a, i) => {
+                <StyledSliderContainer ref={slideRef} >
+                    {
+                        arr.map((a, i) => {
                             return (
-                                <StyledSliderContainer ref={slideRef} key={i}>
-                                    <StyledImg src={require("../../img/" + ( colorNameArr[i]) + "-nobg.png").default} alt={colorNameArr[i]+ "bycycle"} />
-                                </StyledSliderContainer>
+                                <StyledImg key={i} src={require("../../img/" + a + ".png").default} alt="bycycle" />
                             )
                         })
-
                     }
-                */}
-                    <StyledImg src={require("../../img/blue-nobg.png").default} alt="blue bycycle" />
-                    <StyledImg src={require("../../img/yellow-nobg.png").default} alt="yellow bycycle" />
-                    <StyledImg src={require("../../img/red-nobg.png").default} alt="red bycycle" />
-                    <StyledImg src={require("../../img/lightgreen-nobg.png").default} alt="lightgreen bycycle" />
-                    <StyledImg src={require("../../img/purple-nobg.png").default} alt="purple bycycle" />
-                    <StyledImg src={require("../../img/green-nobg.png").default} alt="green bycycle" />
-                    <StyledImg src={require("../../img/grey-nobg.png").default} alt="grey bycycle" />       
-                    </StyledSliderContainer>
+                </StyledSliderContainer>
             </StyledContainer>
             
 

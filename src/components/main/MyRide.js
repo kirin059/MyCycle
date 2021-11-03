@@ -14,27 +14,75 @@ const StyledInputContainer = styled.div`
     justify-content: space-between;
     margin: 0;
     width: 100%;
+    .InputContainer {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      input {              
+        padding: 2px 11px;
+        margin-right: 10px;
+        width: 380px;
+        height: 30px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 3px 3px 3px 3px #E1E2E1;
+        @media only screen and (max-width: 768px) {
+          margin: 0 20px;
+          width: 100%;
+        }
+      }
+      #search {
+        border-radius: 5px;
+        box-shadow: 2px 2px 2px 2px #E1E2E1;
+      }
+      @media only screen and (max-width: 768px) {
+          width: 100%;
+        }
+    }
+    .InputContainer input:focus {
+      outline:none;
+    }
+    .mapOptionBtn {
+      padding: 7px;
+      background-color: coral;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
+      transition: transform 300ms ease;
+      cursor: pointer;
+      :hover {
+        transform: scale(1.03);
+      }
+    }
+    .mapContainer {
+      width: 40px !important;
+      height: 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 300ms ease;
+      :hover {
+        transform: scale(1.1);
+      }
+      @media only screen and (max-width: 768px) {
+        margin: 0 auto;
+        width: 95vw;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px auto;
+      width: 100vw;
+    }
   }
-  .InputContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  .InputContainer input {              
-    padding: 2px 11px;
-    margin-right: 10px;
-    width: 380px;
-    height: 30px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 3px 3px 3px 3px #E1E2E1;
-  }
-  .InputContainer input:focus {
-    outline:none;
-  }
-  #search {
-     border-radius: 5px;
-     box-shadow: 2px 2px 2px 2px #E1E2E1;
+
+
+
+  @media only screen and (max-width: 768px) {
+    margin: 0 auto;
+    width: 100%;
   }
 `;
 
@@ -44,19 +92,6 @@ const StyledMoreOption = styled(EnvironmentOutlined)`
   color: #fff;
   background-color: coral;
   cursor: pointer;
-`;
-
-const StyledOptionMap = styled.div`
-  padding: 7px;
-  background-color: coral;
-  border-radius: 8px;
-  color: #fff;
-  font-size: 15px;
-  transition: transform 300ms ease;
-  cursor: pointer;
-  :hover {
-    transform: scale(1.03);
-  }
 `;
 
 const StyledModal = styled(Modal)`
@@ -79,17 +114,6 @@ const StyledModal = styled(Modal)`
     :hover {
       transform: scale(1.1);
     }
-  }
-`;
-
-const StyledImg = styled.img`
-  width: 40px !important;
-  height: 40px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 300ms ease;
-  :hover {
-    transform: scale(1.1);
   }
 `;
 
@@ -225,8 +249,8 @@ const MyRide = () => {
               <Button id="search" htmlType="submit" icon={<SearchOutlined />}> Search </Button>
             </div>
             <div style={{ display:"flex", alignItems:"center" }}>
-              <StyledOptionMap onClick={showModal} >지도옵션보기<StyledMoreOption/></StyledOptionMap>
-              <StyledImg src={require("../../img/kakao_navi.png").default}
+              <div className="mapOptionBtn" onClick={showModal} >지도옵션보기<StyledMoreOption/></div>
+              <img className="mapContainer" src={require("../../img/kakao_navi.png").default}
                 onClick={() => {
                     handleOk();
                     window.open(`https://map.kakao.com/link/to/${placeId}`);
