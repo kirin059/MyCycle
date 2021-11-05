@@ -35,6 +35,6 @@
 
 ## `Project Output`
 
-![방방](https://user-images.githubusercontent.com/71425369/124382160-f714b500-dd00-11eb-8f23-2c95907ee297.gif)
+![cycle](https://user-images.githubusercontent.com/71425369/140443618-704891b3-0f85-46bf-ba5b-87b7925107b0.gif)
  
 라이딩을 할 때, 필요했던 기능들을 모아서 같은 고민을 하는 유저들을 위한 앱을 만들어보고 싶었습니다. 기획부터 디자인, 기능구현까지 해보는 과정에서 데이터를 활용/가공하는 고민을 깊게 해볼 수 있었고 컴포넌트 사이의 유기적 관계를 보다 깊게 이해할 수 있는 경험이었습니다.
