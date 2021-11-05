@@ -11,7 +11,6 @@ const StyledContainer = styled.div`
   }
 
   @media only screen and (max-width: 480px) {
-    //width: ${props => (props.span ? (props.span / 12) * 100 : "8.33")}%;
     width: 95vw;
   }
 `;
