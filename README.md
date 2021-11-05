@@ -2,7 +2,7 @@
 * 자전거 라이더들을 위한 웹애플리케이션
 
 
-![방방_이미지](https://user-images.githubusercontent.com/71425369/124382331-d6992a80-dd01-11eb-984e-05d3adb987c7.PNG)
+![main1](https://user-images.githubusercontent.com/71425369/140443552-b32045d0-3802-4d6c-856f-9ca10198a046.PNG)
 
 ## `Skill Stack`
 
