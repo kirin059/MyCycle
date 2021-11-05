@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# `React Project`: MyCycle
+* 자전거 라이더들을 위한 웹애플리케이션
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+![방방_이미지](https://user-images.githubusercontent.com/71425369/124382331-d6992a80-dd01-11eb-984e-05d3adb987c7.PNG)
 
-In the project directory, you can run:
+## `Skill Stack`
 
-### `yarn start`
+* HTML5 / CSS3 / Javascript
+* React: Functional Component
+* react-router-dom
+* Kakao Map API
+* Styled-Component, antd
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## `Implementation details`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* Functional Components 구조화
+* React-Router를 활용한 SPA 라우팅
+* React(React Router) Hooks API 적용(useHistory, useEffect, useParams, useRef 등)
+* Kakao Map API 연동
+* LocalStorage를 활용한 데이터 저장/불러오기 
+* Styled-Component, antd를 활용한 스타일링
+* 반응형 웹 구현
 
-### `yarn test`
+## `Function implementation`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* 회원가입/로그인 >> LocalStorage를 활용한 
+* 위치 검색 >> 카카오 지도 API를 연동하여 위치를 검색하면 지도에 표시(mark)되는 기능 구현
+* 지도 옵션 >> 검색된 위치의 지도 road를 교통정보/자동차길/자전거길로 선택적으로 표시될 수 있는 기능 구현
+* 길찾기>> 검색한 위치에 대해 카카오 길찾기 페이지로 이동할 수 있도록 구현
+* 주행기록 >> 지정한 날짜를 클릭하면 해당 일자에 주행한 내용(출발지,도착지,총 주행거리,셀프평점,이미지업로드)을 기록할 수 있는 기능
+* 칼로리 변환 >> 현재 몸무게와 주행시간 값을 입력하면 해당 날짜의 소모된 칼로리를 계산하여 기록해주는 기능
+* 커뮤니티 >> 자전거 맛집/라이딩 정모/운동기록 인증 등 sns처럼 글을 올릴 수 있는 기능
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## `Project Output`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![방방](https://user-images.githubusercontent.com/71425369/124382160-f714b500-dd00-11eb-8f23-2c95907ee297.gif)
+ 
+라이딩을 할 때, 필요했던 기능들을 모아서 같은 고민을 하는 유저들을 위한 앱을 만들어보고 싶었습니다. 기획부터 디자인, 기능구현까지 해보는 과정에서 데이터를 활용/가공하는 고민을 깊게 해볼 수 있었고 컴포넌트 사이의 유기적 관계를 보다 깊게 이해할 수 있는 경험이었습니다.
